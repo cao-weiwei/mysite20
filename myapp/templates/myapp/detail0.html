@@ -27,7 +27,12 @@
         <tr>
             <td> {{ course.name }} </td>
             <td> {{ course.price }} </td>
-            <td> {{ course.for_everyone }} </td>
+            {% if course.for_everyone %}
+                <td> Yes </td>
+            {% else %}
+                <td> No </td>
+            {% endif %}
+{#            <td> {{ course.for_everyone }} </td>#}
             <td> {{ course.description }} </td>
         </tr>
     {% endfor %}
