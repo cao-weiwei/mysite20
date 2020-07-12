@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Learning WebApp!</title>
+</head>
+<body>
+    <p>{{ text }}</p>
+    <p><a href="/myapp/">Index page (Hardcoded URL) </a></p>
+    <p><a href="{% url 'myapp:index' %}">Index page (URL namespacing)</a></p>
+</body>
+</html>
