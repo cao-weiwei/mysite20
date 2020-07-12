@@ -7,12 +7,19 @@
 <body>
 {% if top_list %}
     <h2>List of Topics</h2>
-    <ol>{% for top in top_list %}
-        <li>{{ top.name}} </li>
-    {% endfor %}
+    <ol>
+        {% for top in top_list %}
+            {# use url namespacing to get the url of each topic page #}
+            <a href="{% url 'myapp:detail' top_no=top.id %}">
+                <li>{{ top.name }} </li>
+            </a>
+        {% endfor %}
     </ol>
 {% else %}
     <strong>There are no available topics!</strong>
 {% endif %}
+{# use url namespacing to get the url of about page #}
+<p><a href="{% url 'myapp:about' %}">About page</a></p>
+
 </body>
 </html>
