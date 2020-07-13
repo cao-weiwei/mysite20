@@ -1,0 +1,38 @@
+{% extends 'myapp/base.html' %}
+{% block body_block %}
+<h1>Topic detail page</h1>
+
+{% for top in topic %}
+    <h3> Topic name: </h3>
+        <p> {{ top.name }}
+    <h3> Topic Category: </h3>
+        <p> {{ top.category }}
+{% endfor %}
+
+<h3> Courses for current topic: </h3>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>For Everyone</th>
+        <th>Description</th>
+    </tr>
+
+    {% for course in courses %}
+        <tr>
+            <td> {{ course.name }} </td>
+            <td> {{ course.price }} </td>
+            {% if course.for_everyone %}
+                <td> Yes </td>
+            {% else %}
+                <td> No </td>
+            {% endif %}
+{#            <td> {{ course.for_everyone }} </td>#}
+            <td> {{ course.description }} </td>
+        </tr>
+    {% endfor %}
+
+</table>
+<p><a href="{% url 'myapp:index' %}">Index page</a></p>
+
+{% endblock %}

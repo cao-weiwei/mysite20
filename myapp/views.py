@@ -42,7 +42,7 @@ def about(request):
     data = {
         'text': text,
     }
-    return render(request, 'myapp/about0.html', data)
+    return render(request, 'myapp/about.html', data)
 
 
 # detail page
@@ -56,7 +56,7 @@ def detail(request, top_no):
         'topic': topic,
         'courses': courses,
     }
-    return render(request, 'myapp/detail0.html', data)
+    return render(request, 'myapp/detail.html', data)
 
 
 def index(request):
