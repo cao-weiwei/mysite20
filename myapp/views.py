@@ -21,7 +21,7 @@ def home(request):
 
 
 # Create your views here.
-def index(request):
+def index0(request):
     """
     the index page of myapp
     """
@@ -57,3 +57,16 @@ def detail(request, top_no):
         'courses': courses,
     }
     return render(request, 'myapp/detail0.html', data)
+
+
+def index(request):
+    """
+       the index page of myapp
+       """
+    # for displaying topics
+    top_list = Topic.objects.all().order_by('id')[:10]
+    data = {
+        'top_list': top_list,
+    }
+
+    return render(request, 'myapp/index.html', data)
