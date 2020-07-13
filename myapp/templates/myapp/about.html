@@ -1,0 +1,6 @@
+{% extends 'myapp/base.html' %}
+{% block body_block %}
+    <p>{{ text }}</p>
+    <p><a href="/myapp/">Index page (Hardcoded URL) </a></p>
+    <p><a href="{% url 'myapp:index' %}">Index page (URL namespacing)</a></p>
+{% endblock %}
