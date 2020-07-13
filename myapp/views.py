@@ -65,8 +65,9 @@ def index(request):
        """
     # for displaying topics
     top_list = Topic.objects.all().order_by('id')[:10]
-    data = {
+   data = {
         'top_list': top_list,
+        'your_name': "UWindsor",
     }
 
     return render(request, 'myapp/index.html', data)
