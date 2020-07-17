@@ -35,7 +35,7 @@ class Course(models.Model):
         )
 
     def discount(self):
-        """ return discount amount of the price"""
+        """ return the discount amount of the price"""
         return self.price * 0.1
 
 
