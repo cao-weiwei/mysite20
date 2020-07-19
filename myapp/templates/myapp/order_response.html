@@ -1,0 +1,30 @@
+{% extends 'myapp/base.html' %}
+{% block body_block %}
+    <h1>{{ msg }}</h1>
+    {% if msg == 'Your course has been ordered successfully.' %}
+    <h2>Order details</h2>
+    <br>
+    <h3>Student: </h3>
+   {{ student }}
+    <br>
+     <h3>Course: </h3>
+    {{ course }}
+    <br>
+    <h3>Level: </h3>
+    {{ level }}
+    <br>
+    <h3>Price: </h3>
+    {% if course.price <= 150 %}
+        ${{ course.price }}
+    {% else %}
+        You got a discount!
+        <br>
+        Original: ${{ course.price }}
+        <br>Now:
+        ${{ price }}
+    {% endif %}
+    {% endif %}
+
+
+
+{% endblock %}

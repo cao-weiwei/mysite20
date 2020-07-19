@@ -1,0 +1,13 @@
+{% extends 'myapp/base.html' %}
+{% block body_block %}
+    <h3>List of available courses</h3>
+    <p>
+    {% for course in courlist %}
+            {# use url namespacing to get the url of each topic page #}
+
+            {{ course.name }}
+            <br>
+        {% endfor %}
+    </p>
+    <p><a href="{% url 'myapp:place_order' %}">Place order (URL namespacing)</a></p>
+{% endblock %}
