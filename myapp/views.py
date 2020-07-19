@@ -1,9 +1,11 @@
 from django.shortcuts import render
-
 # Create your views here.
 
 # Import necessary classes
 from django.http import HttpResponse
+from pandas.tests.extension import decimal
+
+from .forms import *
 from .models import Topic, Course, Student, Order
 
 
@@ -51,10 +53,10 @@ def detail(request, top_no):
     the detail page of myapp
     """
     topic = Topic.objects.all().filter(id=top_no)
-    courses = Course.objects.all().filter(topic_id=top_no)
+    cours = Course.objects.all().filter(topic_id=top_no)
     data = {
         'topic': topic,
-        'courses': courses,
+        'cour': cours,
     }
     return render(request, 'myapp/detail.html', data)
 
@@ -71,3 +73,35 @@ def index(request):
     }
 
     return render(request, 'myapp/index.html', data)
+
+
+def courses(request):
+    courlist = Course.objects.all().order_by('id')
+    return render(request, 'myapp/courses.html', {'courlist': courlist})
+
+
+def place_order(request):
+    text = "You can place an order here."
+    msg = ''
+    courlist = Course.objects.all()
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.order_status = 1
+            if order.levels <= order.course.stages:
+                stu = order.student
+                course = order.course
+                level = order.levels
+                price = course.discount()
+                print(price)
+                order.save()
+                msg = 'Your course has been ordered successfully.'
+                return render(request, 'myapp/order_response.html',
+                              {'msg': msg, 'student': stu, 'course': course, 'level': level, 'price': price})
+            else:
+                msg = 'You exceeded the number of levels for this course.'
+                return render(request, 'myapp/order_response.html', {'msg': msg})
+    else:
+        form = OrderForm()
+    return render(request, 'myapp/placeorder.html', {'form': form, 'msg': msg, 'courlist': courlist, 'text': text})
