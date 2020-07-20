@@ -3,158 +3,224 @@
     <h2>{{ text }}</h2>
     <h3>List of courses and form</h3>
 
-
     <form action="/myapp/place_order/" method="post">
-    {% csrf_token %}
+        {% csrf_token %}
 
-<tr><th><label for="id_student_0">Student:</label></th><td><ul class="errorlist">
-    <li>Select a valid choice. That choice is not one of the available choices.</li></ul><ul id="id_student" class="radio">
-    <li><label for="id_student_0"><input type="radio" name="student" value="1" class="radio" required id="id_student_0">
- ---------</label>
+        <tr>
+            <th><label for="id_student_0">Student:</label></th>
+            <td>
+                <ul class="errorlist">
+                    <li>Select a valid choice. That choice is not one of the available choices.</li>
+                </ul>
+                <ul id="id_student" class="radio">
+                    <li><label for="id_student_0"><input type="radio" name="student" value="1" class="radio" required
+                                                         id="id_student_0">
+                        ---------</label>
 
-</li>
-    <li><label for="id_student_1"><input type="radio" name="student" value="2" class="radio" required id="id_student_1">
- Username: john, City:WS, Address: 123 University Avenue</label>
+                    </li>
+                    <li><label for="id_student_1"><input type="radio" name="student" value="2" class="radio" required
+                                                         id="id_student_1">
+                        Username: john, City:WS, Address: 123 University Avenue</label>
 
-</li>
-    <li><label for="id_student_2"><input type="radio" name="student" value="3" class="radio" required id="id_student_2">
- Username: mary, City:VC, Address: 235 Sunset Avenue</label>
+                    </li>
+                    <li><label for="id_student_2"><input type="radio" name="student" value="3" class="radio" required
+                                                         id="id_student_2">
+                        Username: mary, City:VC, Address: 235 Sunset Avenue</label>
 
-</li>
-    <li><label for="id_student_3"><input type="radio" name="student" value="4" class="radio" required id="id_student_3">
- Username: alan, City:CG, Address: 306 Prince Street</label>
+                    </li>
+                    <li><label for="id_student_3"><input type="radio" name="student" value="4" class="radio" required
+                                                         id="id_student_3">
+                        Username: alan, City:CG, Address: 306 Prince Street</label>
 
-</li>
-    <li><label for="id_student_4"><input type="radio" name="student" value="5" class="radio" required id="id_student_4">
- Username: josh, City:MR, Address: 442 Sunset Avenue</label>
+                    </li>
+                    <li><label for="id_student_4"><input type="radio" name="student" value="5" class="radio" required
+                                                         id="id_student_4">
+                        Username: josh, City:MR, Address: 442 Sunset Avenue</label>
 
-</li>
-    <li><label for="id_student_5"><input type="radio" name="student" value="6" class="radio" required id="id_student_5">
- Username: chris, City:WS, Address: 987 King Street</label>
+                    </li>
+                    <li><label for="id_student_5"><input type="radio" name="student" value="6" class="radio" required
+                                                         id="id_student_5">
+                        Username: chris, City:WS, Address: 987 King Street</label>
 
-</li>
-</ul></td></tr>
-<tr><th><label for="id_course">Course:</label></th><td><ul class="errorlist">
-    <li>This field is required.</li></ul><select name="course" required id="id_course">
-  <option value="0" selected>---------</option>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="id_course">Course:</label></th>
+            <td>
+                <ul class="errorlist">
+                    <li>This field is required.</li>
+                </ul>
+                <select name="course" required id="id_course">
+                    <option value="0" selected>---------</option>
 
-  <option value="1">Topic: Name: IT Certification, Category: IT &amp; Software, Name: CCNA, Price: 199.99, For_everyone: False, Description: 1. CCNA		           			IT Certification		199.99				F</option>
+                    <option value="1">Topic: Name: IT Certification, Category: IT &amp; Software, Name: CCNA, Price:
+                        199.99, For_everyone: False, Description: 1. CCNA IT Certification 199.99 F
+                    </option>
 
-  <option value="2">Topic: Name: IT Certification, Category: IT &amp; Software, Name: AWS, Price: 119.99, For_everyone: True, Description: 2. AWS			       			IT Certification		119.99				T</option>
+                    <option value="2">Topic: Name: IT Certification, Category: IT &amp; Software, Name: AWS, Price:
+                        119.99, For_everyone: True, Description: 2. AWS IT Certification 119.99 T
+                    </option>
 
-  <option value="3">Topic: Name: IT Certification, Category: IT &amp; Software, Name: CompTIA Security, Price: 139.99, For_everyone: False, Description: </option>
+                    <option value="3">Topic: Name: IT Certification, Category: IT &amp; Software, Name: CompTIA
+                        Security, Price: 139.99, For_everyone: False, Description:
+                    </option>
 
-  <option value="4">Topic: Name: IT Certification, Category: IT &amp; Software, Name: Oracle SQL, Price: 159.99, For_everyone: False, Description: </option>
+                    <option value="4">Topic: Name: IT Certification, Category: IT &amp; Software, Name: Oracle SQL,
+                        Price: 159.99, For_everyone: False, Description:
+                    </option>
 
-  <option value="5">Topic: Name: Economics, Category: Finance &amp; Accounting, Name: Global Economics, Price: 149.99, For_everyone: True, Description: </option>
+                    <option value="5">Topic: Name: Economics, Category: Finance &amp; Accounting, Name: Global
+                        Economics, Price: 149.99, For_everyone: True, Description:
+                    </option>
 
-  <option value="6">Topic: Name: Economics, Category: Finance &amp; Accounting, Name: Introduction to Economics, Price: 174.99, For_everyone: True, Description: </option>
+                    <option value="6">Topic: Name: Economics, Category: Finance &amp; Accounting, Name: Introduction to
+                        Economics, Price: 174.99, For_everyone: True, Description:
+                    </option>
 
-  <option value="7">Topic: Name: Economics, Category: Finance &amp; Accounting, Name: Microeconomics, Price: 199.99, For_everyone: False, Description: </option>
+                    <option value="7">Topic: Name: Economics, Category: Finance &amp; Accounting, Name: Microeconomics,
+                        Price: 199.99, For_everyone: False, Description:
+                    </option>
 
-  <option value="8">Topic: Name: Web Development, Category: Development, Name: Web Dev Bootcamp, Price: 199.99, For_everyone: True, Description: </option>
+                    <option value="8">Topic: Name: Web Development, Category: Development, Name: Web Dev Bootcamp,
+                        Price: 199.99, For_everyone: True, Description:
+                    </option>
 
-  <option value="9">Topic: Name: Web Development, Category: Development, Name: Web Design, Price: 159.99, For_everyone: False, Description: </option>
+                    <option value="9">Topic: Name: Web Development, Category: Development, Name: Web Design, Price:
+                        159.99, For_everyone: False, Description:
+                    </option>
 
-  <option value="10">Topic: Name: Web Development, Category: Development, Name: Web Development Mastercalss, Price: 124.99, For_everyone: True, Description: </option>
+                    <option value="10">Topic: Name: Web Development, Category: Development, Name: Web Development
+                        Mastercalss, Price: 124.99, For_everyone: True, Description:
+                    </option>
 
-  <option value="11">Topic: Name: Web Development, Category: Development, Name: Build Responsive Websites, Price: 149.99, For_everyone: False, Description: </option>
+                    <option value="11">Topic: Name: Web Development, Category: Development, Name: Build Responsive
+                        Websites, Price: 149.99, For_everyone: False, Description:
+                    </option>
 
-  <option value="12">Topic: Name: Management, Category: Business, Name: Innovation for Business, Price: 174.99, For_everyone: True, Description: </option>
+                    <option value="12">Topic: Name: Management, Category: Business, Name: Innovation for Business,
+                        Price: 174.99, For_everyone: True, Description:
+                    </option>
 
-  <option value="13">Topic: Name: Management, Category: Business, Name: Leadership Skills, Price: 184.99, For_everyone: True, Description: </option>
+                    <option value="13">Topic: Name: Management, Category: Business, Name: Leadership Skills, Price:
+                        184.99, For_everyone: True, Description:
+                    </option>
 
-  <option value="14">Topic: Name: Management, Category: Business, Name: Project Management, Price: 149.99, For_everyone: True, Description: </option>
+                    <option value="14">Topic: Name: Management, Category: Business, Name: Project Management, Price:
+                        149.99, For_everyone: True, Description:
+                    </option>
 
-  <option value="15">Topic: Name: Sports, Category: Health &amp; Fitness, Name: Sports Psychology, Price: 174.99, For_everyone: True, Description: </option>
+                    <option value="15">Topic: Name: Sports, Category: Health &amp; Fitness, Name: Sports Psychology,
+                        Price: 174.99, For_everyone: True, Description:
+                    </option>
 
-  <option value="16">Topic: Name: Sports, Category: Health &amp; Fitness, Name: Swimming Guide for Beginners, Price: 99.99, For_everyone: True, Description: </option>
+                    <option value="16">Topic: Name: Sports, Category: Health &amp; Fitness, Name: Swimming Guide for
+                        Beginners, Price: 99.99, For_everyone: True, Description:
+                    </option>
 
-  <option value="17">Topic: Name: Sports, Category: Health &amp; Fitness, Name: Introduction to Soccer, Price: 134.99, For_everyone: True, Description: </option>
+                    <option value="17">Topic: Name: Sports, Category: Health &amp; Fitness, Name: Introduction to
+                        Soccer, Price: 134.99, For_everyone: True, Description:
+                    </option>
 
-</select></td></tr><br>
-<tr><th><label for="id_levels">Levels:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul>
-    <select type="number" name="levels" required id="id_levels">
-<option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    </select>
-</td></tr><br>
-<tr><th><label for="id_order_date_month">Order date:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul>
-    <select name="order_date_month" required id="id_order_date_month" class="years=date.today()">
-        <option value="1">January</option>
-    <option value="2">February</option>
-    <option value="3">March</option>
-    <option value="4">April</option>
-    <option value="5">May</option>
-    <option value="6">June</option>
-    <option value="7">July</option>
-    <option value="8">August</option>
-    <option value="9">September</option>
-    <option value="10">October</option>
-    <option value="11">November</option>
-    <option value="12">December</option>
-    </select>
+                </select></td>
+        </tr>
+        <br>
+        <tr>
+            <th><label for="id_levels">Levels:</label></th>
+            <td>
+                <ul class="errorlist">
+                    <li>This field is required.</li>
+                </ul>
+                <select type="number" name="levels" required id="id_levels">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select>
+            </td>
+        </tr>
+        <br>
+        <tr>
+            <th><label for="id_order_date_month">Order date:</label></th>
+            <td>
+                <ul class="errorlist">
+                    <li>This field is required.</li>
+                </ul>
+                <select name="order_date_month" required id="id_order_date_month" class="years=date.today()">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
 
-    <select name="order_date_day" required id="id_order_date_day" class="years=date.today()">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-        <option value="14">14</option>
-        <option value="15">15</option>
-        <option value="16">16</option>
-        <option value="17">17</option>
-        <option value="18">18</option>
-        <option value="19">19</option>
-        <option value="20">20</option>
-        <option value="21">21</option>
-        <option value="22">22</option>
-        <option value="23">23</option>
-        <option value="24">24</option>
-        <option value="25">25</option>
-        <option value="26">26</option>
-        <option value="27">27</option>
-        <option value="28">28</option>
-        <option value="29">29</option>
-        <option value="30">30</option>
-        <option value="31">31</option>
-    </select>
+                <select name="order_date_day" required id="id_order_date_day" class="years=date.today()">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select>
 
-    <select name="order_date_year" required id="id_order_date_year" class="years=date.today()">
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-        <option value="2023">2023</option>
-        <option value="2024">2024</option>
-        <option value="2025">2025</option>
-        <option value="2026">2026</option>
-        <option value="2027">2027</option>
-        <option value="2028">2028</option>
-        <option value="2029">2029</option>
-    </select>
+                <select name="order_date_year" required id="id_order_date_year" class="years=date.today()">
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                </select>
 
-    <input type="hidden" name="initial-order_date" id="initial-id_order_date">
+                <input type="hidden" name="initial-order_date" id="initial-id_order_date">
 
-</td></tr>
+            </td>
+        </tr>
 
-    <input type="submit" value="submit">
+        <input type="submit" value="submit">
     </form>
 
 
