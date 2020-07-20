@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 # Import necessary classes
 from django.http import HttpResponse
-from pandas.tests.extension import decimal
+# from pandas.tests.extension import decimal
 
 from .forms import *
 from .models import Topic, Course, Student, Order
@@ -105,3 +105,31 @@ def place_order(request):
     else:
         form = OrderForm()
     return render(request, 'myapp/placeorder.html', {'form': form, 'msg': msg, 'courlist': courlist, 'text': text})
+
+
+def course_detail(request, cour_id):
+
+    if request.method == 'POST':  # show interests in the current course
+        form = InterestForm(request.POST)
+
+        print(form)
+        # print(form.interested)
+        if form.is_valid():
+            course = Course.objects.get(id=cour_id)
+            # course = form.save(commit=False)
+            course.interested += 1
+            # print(course.id)
+            course.save()
+            top_list = Topic.objects.all().order_by('id')[:10]
+            data = {
+                'top_list': top_list,
+                'your_name': "UWindsor",
+            }
+            return render(request, 'myapp/index.html', data)
+
+    else:
+        course = Course.objects.filter(id=cour_id)
+        form = InterestForm()
+        # form.interested = '1'
+        data = {'form': form, 'course': course, 'course_id': cour_id}
+        return render(request, 'myapp/course_detail.html', data)

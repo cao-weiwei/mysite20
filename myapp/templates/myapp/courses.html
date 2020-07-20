@@ -2,10 +2,12 @@
 {% block body_block %}
     <h3>List of available courses</h3>
     <p>
-    {% for course in courlist %}
+        {% for course in courlist %}
             {# use url namespacing to get the url of each topic page #}
-
-            {{ course.name }}
+            <a href="{% url 'myapp:course_detail' cour_id=course.id %}">
+{#            <a href="{% url 'myapp:detail' top_no=top.id %}">#}
+                {{ course.name }}
+            </a>
             <br>
         {% endfor %}
     </p>
