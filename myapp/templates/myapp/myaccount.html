@@ -1,0 +1,55 @@
+{% extends 'myapp/base.html' %}
+
+{% block myhdg %}
+    {% if error %}
+        Welcome {{ username }}
+        {% else %}
+        Welcome {{ first_name }} {{ last_name }}
+    {% endif %}
+
+{% endblock %}
+
+{% block body_block %}
+    {% if error %}
+        <p>{{ error }}</p>
+        {% else %}
+        <p> First Name: {{ first_name }} </p>
+        <p> Last Name: {{ last_name }} </p>
+        <p> Ordered Courses: </p>
+        <table border="1">
+            <tr>
+                <th>Order Date</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>For Everyone</th>
+                <th>Description</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td> {{ order.order_date }}</td>
+                <td> {{ order.course.name }}</td>
+                <td> {{ order.course.price }} </td>
+                {% if order.course.for_everyone %}
+                    <td> Yes </td>
+                {% else %}
+                    <td> No </td>
+                {% endif %}
+                <td> {{ order.course.description }} </td>
+            </tr>
+            {% endfor %}
+         </table>
+        <p> Interested Topic: </p>
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+            </tr>
+            {% for topic in interested_topics %}
+            <tr>
+                <td> {{ topic.name }}</td>
+                <td> {{ topic.category }}</td>
+            </tr>
+            {% endfor %}
+         </table>
+    {% endif %}
+{% endblock %}

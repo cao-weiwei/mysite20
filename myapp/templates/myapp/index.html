@@ -1,7 +1,12 @@
 {% extends 'myapp/base.html' %}
 
 {% block myhdg %}
-    Hello {{your_name}}
+    {% if your_name %}
+        Hello <a href="{% url 'myapp:my_account' %}">{{ your_name }}</a>
+        {% else %}
+        Welcome new visitor
+    {% endif %}
+
 {% endblock %}
 
 {% block body_block %}

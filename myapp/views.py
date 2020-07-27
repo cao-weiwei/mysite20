@@ -1,12 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # Create your views here.
 
 # Import necessary classes
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 # from pandas.tests.extension import decimal
+from django.urls import reverse
 
 from .forms import *
 from .models import Topic, Course, Student, Order
+
+# lab 8
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -69,7 +74,7 @@ def index(request):
     top_list = Topic.objects.all().order_by('id')[:10]
     data = {
         'top_list': top_list,
-        'your_name': "UWindsor",
+        'your_name': request.user.username,
     }
 
     return render(request, 'myapp/index.html', data)
@@ -133,3 +138,53 @@ def course_detail(request, cour_id):
         # form.interested = '1'
         data = {'form': form, 'course': course, 'course_id': cour_id}
         return render(request, 'myapp/course_detail.html', data)
+
+
+# lab 8
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        # print(user, username, password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('myapp:index'))
+            else:
+                return HttpResponse('Your account is disabled.')
+        else:
+            return HttpResponse('Invalid login details.')
+    else:
+        return render(request, 'myapp/login.html')
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('myapp:index'))
+
+
+@login_required
+def myaccount(request):
+    # if not request.user.is_authenticated():
+    #     return redirect('myapp:user_login')
+
+    students = Student.objects.filter(username=request.user.username)
+    data = dict()
+    # check the username
+    if students.count() == 0:
+        data['error'] = 'You are not a registered student!'
+        data['username'] = request.user.username
+    else:
+        # The first and last name of the student.
+        # All the courses that have been ordered by the student.
+        # All the topics the student is interested in.
+        # for stu in students:
+        data['first_name'] = students[0].first_name
+        data['last_name'] = students[0].last_name
+        data['orders'] = Order.objects.filter(student_id=students[0].user_ptr_id)
+        # all_topics = students[0].interested_in
+        # print(all_topics.all())
+        data['interested_topics'] = students[0].interested_in.all()
+    return render(request, 'myapp/myaccount.html', data)
