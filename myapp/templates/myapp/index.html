@@ -2,9 +2,9 @@
 
 {% block myhdg %}
     {% if your_name %}
-        Hello <a href="{% url 'myapp:my_account' %}">{{ your_name }}</a>
+        Hello <a href="{% url 'myapp:my_account' %}">{{ your_name }}</a> <a href="{% url 'myapp:user_logout' %}">logout</a>
         {% else %}
-        Welcome new visitor
+        Welcome new visitor <a href="{% url 'myapp:user_login' %}">log in</a>
     {% endif %}
 
 {% endblock %}
