@@ -113,7 +113,6 @@ def place_order(request):
 
 
 def course_detail(request, cour_id):
-
     if request.method == 'POST':  # show interests in the current course
         form = InterestForm(request.POST)
 
@@ -188,3 +187,14 @@ def myaccount(request):
         # print(all_topics.all())
         data['interested_topics'] = students[0].interested_in.all()
     return render(request, 'myapp/myaccount.html', data)
+
+
+def test_cookie(request):
+    """ this is for testing the cookies """
+    cookie_val = request.COOKIES.get('cookie_name', None)
+    if cookie_val is None:  # no cookies
+        response = HttpResponse("First time Visiting")
+        response.set_cookie('cookie_name', 'cookie_value')
+        return response
+    else:   # already has cookies
+        return HttpResponse("the cookie name: {}\n, the cookie value: {}".format('cookie_name', cookie_val))
