@@ -45,11 +45,19 @@ def about(request):
     """
     the about page of myapp
     """
-    text = 'This is an E-learning Website!Search our Topics to find all available Courses.'
+    cookie_val = request.COOKIES.get('about_visits', None)
+    if cookie_val is None:  # no cookies
+        print('first time!')
+        cookie_val = 0
+
+    cookie_val = int(cookie_val) + 1
+    text = 'This is an E-learning Website! Search our Topics to find all available Courses. So far we have ' + str(cookie_val) + ' times visiting'
     data = {
         'text': text,
     }
-    return render(request, 'myapp/about.html', data)
+    response = render(request, 'myapp/about.html', data)
+    response.set_cookie('about_visits', cookie_val, max_age=600)
+    return response
 
 
 # detail page
