@@ -3,10 +3,13 @@
 {% block myhdg %}
     {% if your_name %}
         Hello <a href="{% url 'myapp:my_account' %}">{{ your_name }}</a> <a href="{% url 'myapp:user_logout' %}">logout</a>
+        <br>
+        <h3 style="text-align: center">Last login: {{ loginInfo }}</h3>
         {% else %}
         Welcome visitor <a href="{% url 'myapp:user_login' %}">log in</a>
+         <br>
+        <h3 style="text-align: center">Your last login was one hour ago</h3>
     {% endif %}
-
 {% endblock %}
 
 {% block body_block %}
