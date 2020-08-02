@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 # from pandas.tests.extension import decimal
 from django.urls import reverse
-
+import datetime
 from .forms import *
 from .models import Topic, Course, Student, Order
 
@@ -78,11 +78,11 @@ def index(request):
     """
        the index page of myapp
        """
-    # for displaying topics
     top_list = Topic.objects.all().order_by('id')[:10]
     data = {
         'top_list': top_list,
         'your_name': request.user.username,
+        'loginInfo': request.session.get('last_login')
     }
 
     return render(request, 'myapp/index.html', data)
@@ -157,6 +157,8 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
+                now_time = datetime.datetime.now().strftime('%F %T')
+                request.session['last_login'] = str(now_time)
                 return HttpResponseRedirect(reverse('myapp:index'))
             else:
                 return HttpResponse('Your account is disabled.')
@@ -168,7 +170,9 @@ def user_login(request):
 
 @login_required
 def user_logout(request):
-    logout(request)
+    # logout(request)
+    # log out the user by deleting request session
+    request.session.flush()
     return HttpResponseRedirect(reverse('myapp:index'))
 
 
