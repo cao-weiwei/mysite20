@@ -11,7 +11,39 @@
 
 {% block body_block %}
     {% if error %}
-        <p>{{ error }}</p>
+        <table border="1">
+            <tr>
+                <th>Topic</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Hours</th>
+                <th>For Everyone</th>
+                <th> Add hours </th>
+            </tr>
+            <tr>
+            {% for course in courses %}
+            <tr>
+                <td> {{ course.topic }}</td>
+                <td> {{ course.name }}</td>
+                <td> {{ course.price }} </td>
+                <td> {{ course.hours }} </td>
+                {% if course.for_everyone %}
+                    <td> Yes </td>
+                {% else %}
+                    <td> No </td>
+                {% endif %}
+
+                <td>
+                    <form action="{% url 'myapp:my_account' %}" method="post">
+                        {% csrf_token %}
+                        <input id="course_name" type="text" name="course_name" value="{{ course.name }}">
+                        <input type="submit" value="add">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tr>
+        </table>
         {% else %}
         <p> First Name: {{ first_name }} </p>
         <p> Last Name: {{ last_name }} </p>

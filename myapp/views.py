@@ -8,6 +8,7 @@ from django.urls import reverse
 
 from .forms import *
 from .models import Topic, Course, Student, Order
+from .admin import CourseAdmin
 
 # lab 8
 from django.contrib.auth import authenticate, login, logout
@@ -176,25 +177,40 @@ def user_logout(request):
 def myaccount(request):
     # if not request.user.is_authenticated():
     #     return redirect('myapp:user_login')
+    if request.method == 'POST':
 
-    students = Student.objects.filter(username=request.user.username)
-    data = dict()
-    # check the username
-    if students.count() == 0:
+        course_name = request.POST['course_name']
+        print(course_name)
+        CourseAdmin.add_50_to_hours(course_name)
+        data = dict()
         data['error'] = 'You are not a registered student!'
         data['username'] = request.user.username
+        data['courses'] = CourseAdmin.courses
+        return render(request, 'myapp/myaccount.html', data)
     else:
-        # The first and last name of the student.
-        # All the courses that have been ordered by the student.
-        # All the topics the student is interested in.
-        # for stu in students:
-        data['first_name'] = students[0].first_name
-        data['last_name'] = students[0].last_name
-        data['orders'] = Order.objects.filter(student_id=students[0].user_ptr_id)
-        # all_topics = students[0].interested_in
-        # print(all_topics.all())
-        data['interested_topics'] = students[0].interested_in.all()
-    return render(request, 'myapp/myaccount.html', data)
+        students = Student.objects.filter(username=request.user.username)
+
+        data = dict()
+        # check the username
+        if students.count() == 0:
+            data['error'] = 'You are not a registered student!'
+            data['username'] = request.user.username
+            data['courses'] = CourseAdmin.courses
+        else:
+            # The first and last name of the student.
+            # All the courses that have been ordered by the student.
+            # All the topics the student is interested in.
+            # for stu in students:
+            data['first_name'] = students[0].first_name
+            data['last_name'] = students[0].last_name
+            data['orders'] = Order.objects.filter(student_id=students[0].user_ptr_id)
+            # all_topics = students[0].interested_in
+            # print(all_topics.all())
+            data['interested_topics'] = students[0].interested_in.all()
+
+        return render(request, 'myapp/myaccount.html', data)
+
+
 
 
 def test_cookie(request):
