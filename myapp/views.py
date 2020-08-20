@@ -1,3 +1,7 @@
+import smtplib
+import string
+import random
+
 from django.shortcuts import render, redirect
 # Create your views here.
 
@@ -5,14 +9,19 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 # from pandas.tests.extension import decimal
 from django.urls import reverse
-
+import datetime
 from .forms import *
 from .models import Topic, Course, Student, Order
 from .admin import CourseAdmin
+# from .models import Topic, Course, Student, Order
+from .models import *
 
 # lab 8
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+
+# send email
+from django.core.mail import send_mail
 
 
 def home(request):
@@ -52,7 +61,8 @@ def about(request):
         cookie_val = 0
 
     cookie_val = int(cookie_val) + 1
-    text = 'This is an E-learning Website! Search our Topics to find all available Courses. So far we have ' + str(cookie_val) + ' times visiting'
+    text = 'This is an E-learning Website! Search our Topics to find all available Courses. So far we have ' + str(
+        cookie_val) + ' times visiting'
     data = {
         'text': text,
     }
@@ -79,11 +89,11 @@ def index(request):
     """
        the index page of myapp
        """
-    # for displaying topics
     top_list = Topic.objects.all().order_by('id')[:10]
     data = {
         'top_list': top_list,
-        'your_name': request.user.username,
+        'user': request.user,
+        'loginInfo': request.session.get('last_login')
     }
 
     return render(request, 'myapp/index.html', data)
@@ -158,6 +168,8 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
+                now_time = datetime.datetime.now().strftime('%F %T')
+                request.session['last_login'] = str(now_time)
                 return HttpResponseRedirect(reverse('myapp:index'))
             else:
                 return HttpResponse('Your account is disabled.')
@@ -169,7 +181,9 @@ def user_login(request):
 
 @login_required
 def user_logout(request):
-    logout(request)
+    # logout(request)
+    # log out the user by deleting request session
+    request.session.flush()
     return HttpResponseRedirect(reverse('myapp:index'))
 
 
@@ -220,5 +234,41 @@ def test_cookie(request):
         response = HttpResponse("First time Visiting")
         response.set_cookie('cookie_name', 'cookie_value')
         return response
-    else:   # already has cookies
+    else:  # already has cookies
         return HttpResponse("the cookie name: {}\n, the cookie value: {}".format('cookie_name', cookie_val))
+
+
+def reset_pwd(request):
+    if request.method == 'POST':
+        email = request.POST['email_address']
+        all_emails = User.objects.filter(email=email)
+        if email and all_emails:
+            print("We've found the account!")
+            send_email(email)
+            return render(request, 'myapp/resetpwd_done.html')
+        else:
+            return render(request, 'myapp/resetpwd_error.html', {
+                'msg': 'The email has not been registered yet or the input is illegal! Please check it!'})
+    return render(request, 'myapp/resetpwd.html')
+
+
+def send_email(target_email):
+    email_subject = 'Reset Password'
+    email_content = 'Here is the new password: ' + generate_pwd(target_email)
+    # print(email_content)
+    sender = 'mysite.django.python@gmail.com'
+    recipients = [target_email]
+    send_mail(email_subject, email_content, sender, recipients, fail_silently=False)
+    print('Done')
+
+
+def generate_pwd(account_email):
+    MAX_LEN = 8
+    user = User.objects.get(email=account_email)
+    new_pwd = ""
+    seed = string.ascii_letters + string.digits + string.punctuation
+    for _ in range(MAX_LEN):
+        new_pwd += random.choice(seed)
+    user.set_password(new_pwd)
+    user.save()
+    return new_pwd

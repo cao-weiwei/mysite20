@@ -1,12 +1,30 @@
 {% extends 'myapp/base.html' %}
 
 {% block myhdg %}
-    {% if your_name %}
-        Hello <a href="{% url 'myapp:my_account' %}">{{ your_name }}</a> <a href="{% url 'myapp:user_logout' %}">logout</a>
-        {% else %}
-        Welcome visitor <a href="{% url 'myapp:user_login' %}">log in</a>
-    {% endif %}
+    {% if user.username %}
+        {# already a registered user #}
+        {% if user.last_name and user.first_name %}
+            Hello {{ user.first_name }} {{ user.last_name }}
+        {% else %} {# for the account which doesn't have the first and lat name #}
+            Hello {{ user.username }}
+        {% endif %}
+        <div>
+            <span> <a href="{% url 'myapp:my_account' %}">My Account</a> </span>
+            <span> <a href="{% url 'myapp:user_logout' %}">Log Out</a> </span>
+        </div>
 
+        <br>
+        <h3 style="text-align: center">Last login: {{ loginInfo }}</h3>
+        {% else %}
+        {# not a registered user #}
+        Welcome visitor
+        <div>
+            <span> <a href="{% url 'myapp:index' %}">Register Here</a> </span> {# should be register page #}
+            <span> <a href="{% url 'myapp:user_login' %}">Log In</a> </span>
+        </div>
+        <br>
+        <h3 style="text-align: center">Your last login was one hour ago</h3>
+    {% endif %}
 {% endblock %}
 
 {% block body_block %}

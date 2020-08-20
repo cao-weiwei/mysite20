@@ -15,4 +15,5 @@ urlpatterns = [
     path(r'logout/', views.user_logout, name='user_logout'),
     path(r'myaccount/', views.myaccount, name='my_account'),
     path(r'test_cookie/', views.test_cookie, name='test_cookie'),
+    path(r'reset_pwd/', views.reset_pwd, name='reset_pwd'),
 ]
